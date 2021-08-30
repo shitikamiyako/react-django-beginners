@@ -1,14 +1,17 @@
-import React from 'react'
+import React from "react";
 
 const Basic1 = () => {
-    return (
-        <>
-            <div>
-                <h1>Hello world!</h1>
-                <h1>Hello world!</h1>
-            </div>
-        </>
-    )
-}
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("test");
+  };
 
-export default Basic1
+  return (
+    <>
+      <div>
+        <button onClick={clickHandler}>Click</button>
+      </div>
+    </>
+  );
+};
+
+export default Basic1;
