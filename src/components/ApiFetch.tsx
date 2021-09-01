@@ -3,6 +3,8 @@ import axios from "axios";
 
 const ApiFetch = () => {
   // APIを叩くとき、TypeScriptでは予め受け取る型をInterfaceで実装しておく必要がある。
+  // ちなみに厳格に定義しないといけないので以下の場合は?を外すとエラーになる
+  // よってtypeofを使うのが望ましいと思う、以後のレッスンで触れられるだろうと思うのでとりあえず覚えておく
   interface Json {
     userId?: number;
     id?: number;

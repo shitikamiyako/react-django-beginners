@@ -5,18 +5,26 @@ import logo from "./logo.svg";
 // import BasicUseEffect from "./components/BasicUseEffect";
 // import TimerContainer from "./components/TimerContainer";
 import ApiFetch from "./components/ApiFetch";
+import AppContext from "./contexts/AppContext";
+import TestA from "./components/TestA";
+import TestB from "./components/TestB";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="logo" className="App-logo" />
-        <ApiFetch />
-        {/* <TimerContainer /> */}
-        {/* <BasicUseEffect /> */}
-        {/* <Basic2 /> */}
-      </header>
-    </div>
+    // createContextを定義したファイルをインポートしてProviderとすることでvalueを子コンポーネント以下で受け取れるようにする
+    <AppContext.Provider value={"test"}>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} alt="logo" className="App-logo" />
+          <ApiFetch />
+          <TestA />
+          <TestB />
+          {/* <TimerContainer /> */}
+          {/* <BasicUseEffect /> */}
+          {/* <Basic2 /> */}
+        </header>
+      </div>
+    </AppContext.Provider>
   );
 };
 
