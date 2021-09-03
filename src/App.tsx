@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useReducer, useCallback } from "react";
 import "./App.css";
 import logo from "./logo.svg";
 // import Basic2 from "./components/Basic2";
@@ -9,9 +9,10 @@ import AppContext from "./contexts/AppContext";
 // import TestA from "./components/TestA";
 // import TestB from "./components/TestB";
 // import BasicReducer from "./components/BasicReducer";
-import { useReducer } from "react";
+import CountClick from "./components/CountClick";
+import CountDisplay from "./components/CountDisplay";
 // import CompB from "./components/CompB";
-import Memo from "./components/Memo";
+// import Memo from "./components/Memo";
 
 // TypeScriptではReducerを作るときも型をちゃんと定義しないとダメ
 
@@ -40,6 +41,20 @@ const reducer = (currentState: typeof initialState, action: ACTIONTYPE) => {
 const App: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+  // 実行関数をMemo化したい場合はuseCallback
+  // アロー関数はレンダリングされるたびに新規の関数となり、レンダリング以前のそれとは等価とはならない
+  // つまり、実行関数をpropとしてコンポーネントに渡し、再利用している場合は当該コンポーネントをMemo化するだけでは不要なレンダリングは防げない
+  // よって、実行環境をMemo化しておく。ちなみに今回の場合は依存配列に各countStateを入れてしまうと、実行するたびにやはり新規関数扱いになるので意味がなくなる
+  const AddCount1 = useCallback(() => {
+    setCount1((prevCount1) => prevCount1 + 1);
+  }, []);
+  const AddCount2 = useCallback(() => {
+    setCount2((prevCount2) => prevCount2 + 1);
+  }, []);
+
   return (
     // createContextを定義したファイルをインポートしてProviderとすることでvalueを子コンポーネント以下で受け取れるようにする
     // useReducerのアクションをグローバルに使いたい場合はまずuseReducerのstateとdispatchをvalueの引数にする
@@ -48,7 +63,12 @@ const App: React.FC = () => {
         <header className="App-header">
           <img src={logo} alt="logo" className="App-logo" />
           Count {state.count}
-          <Memo />
+          {/* コンポーネントに引数を渡す場合、TSの場合は当該コンポーネント側で予めtypeやinterfaceで定義して引数にしておく必要がある */}
+          <CountDisplay name="count1" count={count1} />
+          <CountClick handleClick={AddCount1}> AddCount1</CountClick>
+          <CountDisplay name="count2" count={count2} />
+          <CountClick handleClick={AddCount2}>AddCount2</CountClick>
+          {/* <Memo /> */}
           {/* <CompB /> */}
           {/* <BasicReducer /> */}
           {/* <ApiFetch />
