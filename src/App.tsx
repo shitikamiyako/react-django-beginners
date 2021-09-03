@@ -10,7 +10,8 @@ import AppContext from "./contexts/AppContext";
 // import TestB from "./components/TestB";
 // import BasicReducer from "./components/BasicReducer";
 import { useReducer } from "react";
-import CompB from "./components/CompB";
+// import CompB from "./components/CompB";
+import Memo from "./components/Memo";
 
 // TypeScriptではReducerを作るときも型をちゃんと定義しないとダメ
 
@@ -47,7 +48,8 @@ const App: React.FC = () => {
         <header className="App-header">
           <img src={logo} alt="logo" className="App-logo" />
           Count {state.count}
-          <CompB />
+          <Memo />
+          {/* <CompB /> */}
           {/* <BasicReducer /> */}
           {/* <ApiFetch />
           <TestA />
