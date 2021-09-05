@@ -1,18 +1,10 @@
-// import { combineReducers } from "redux";
-// import reducerMeet from "./reducerMeet";
-// import reducerVegetable from "./reducerVegetable";
+import { combineReducers } from "redux";
+import reducerMeat from "./reducerMeat";
+import reducerVegetable from "./reducerVegetable";
 
-// const rootReducer = combineReducers({
-//   reducerMeet,
-//   reducerVegetable,
-// });
+const rootReducer = combineReducers({
+  reducerMeat,
+  reducerVegetable,
+});
 
-// export type RootState = ReturnType<typeof rootReducer>;
-// export default rootReducer;
-import React from "react";
-
-const index = () => {
-  return <div></div>;
-};
-
-export default index;
+export default rootReducer;

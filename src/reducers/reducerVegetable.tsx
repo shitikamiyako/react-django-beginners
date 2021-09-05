@@ -1,12 +1,14 @@
 import { ACTIONTYPE, SELL_VEGETABLE } from "./actionTypes";
 
-const reducerVegetable = (
-  state = { numOfVegetable: 0 },
-  action: ACTIONTYPE
-) => {
+const initialState = { numOfVegetable: 0 };
+
+const reducerVegetable = (state = initialState, action: ACTIONTYPE) => {
   switch (action.type) {
     case SELL_VEGETABLE:
-      return { ...state, numOfVegetable: state.numOfVegetable - 1 };
+      return {
+        ...state,
+        numOfVegetable: state.numOfVegetable - 1,
+      };
     default:
       return state;
   }
