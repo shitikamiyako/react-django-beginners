@@ -2,22 +2,24 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const DrfApiFetch = () => {
-  // 単一データを取得したいときに空のオブジェクトにしたい場合があるので?をつけておく
   interface Task {
-    id?: number;
-    title?: string;
+    // any型を嫌うならこっちにすべき？
+    // id: number | string;
+    id: number;
+    title: string;
   }
 
   // APIからの返り値はまず、一括取得等のObjectのリストになる場合はinterfaceで定義してinterface[]で定義
   const [tasks, setTasks] = useState<Task[]>([]);
-  // 次に単一データ等オブジェクトで来ることがわかっているなら型アサーションで定義
-  const [selectedtask, setSelectedTask] = useState<Task>({} as Task);
+  // 次に単一データの場合は初期値が空のObjectであった場合は当然型チェックでエラーが出るのでanyにしておく、理由は下記。
+  const [selectedtask, setSelectedTask] = useState<any>({});
   // React.ChangeEvent<HTMLInputElement>型の要素が入るが、初期値を定義したいのでanyにしておく
+  // これはinputタグから受け取る値がstring型になり、かつidプロパティの初期値は空にしたいのだが、そうするとその初期値自体もstring型になってしまうため
   const [editedTask, setEditedTask] = useState<any>({
     id: "",
     title: "",
   });
-  //   inputタグをEventHandlerしたいならこれで定義(inputタグからの値はstirng扱いされる)
+  //   inputタグをEventHandlerしたいならこれで定義(inputタグからの値はstring扱いされる)
   const [id, setId] = useState<string | number>(1);
 
   const getTaskList = async () => {
