@@ -58,7 +58,7 @@ const DrfApiFetch = () => {
     }
   };
 
-  const newTask = async (task: any) => {
+  const newTask = async (task: Task) => {
     const data = {
       title: task.title,
     };
@@ -80,7 +80,7 @@ const DrfApiFetch = () => {
     }
   };
 
-  const editTask = async (task: any) => {
+  const editTask = async (task: Task) => {
     try {
       const res = await axios.put(
         `http://127.0.0.1:8000/api/tasks/${task.id}/`,
@@ -106,7 +106,7 @@ const DrfApiFetch = () => {
   };
 
   //   引数はイベントやレンダリング中に決まるので型はanyにしておく、正解かどうかは審議
-  const deleteTask = async (id: any) => {
+  const deleteTask = async (id: number) => {
     try {
       const res = await axios.delete(`http://127.0.0.1:8000/api/tasks/${id}`, {
         headers: {
